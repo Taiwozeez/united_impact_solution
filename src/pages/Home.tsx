@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import NavBar from '../components/header';
 import Hero from '../components/Home/Hero';
 import Cards from '../components/Home/Cards';
