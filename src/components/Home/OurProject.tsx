@@ -4,19 +4,19 @@ const OurProject = () => {
   const projects = [
     {
       id: 1,
-      image: "/public/images/projectimg1.png",
+      image: "/images/projectimg1.png",
       title: "Tech Herrlica Kicks Off STEM Her Initiative to Ignite Girls' Passion for STEM",
       link: "#"
     },
     {
       id: 2,
-      image: "/public/images/projectimg2.png",
+      image: "/images/projectimg2.png",
       title: "Tech Herrlica Kicks Off STEM Her Initiative to Ignite Girls' Passion for STEM",
       link: "#"
     },
     {
       id: 3,
-      image: "/public/images/projectimg3.png",
+      image: "/images/projectimg3.png",
       title: "Tech Herrlica Kicks Off STEM Her Initiative to Ignite Girls' Passion for STEM",
       link: "#"
     }
