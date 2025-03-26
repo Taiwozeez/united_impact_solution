@@ -22,14 +22,14 @@ const HeroSection: React.FC = () => {
     },
     {
       id: 2,
-      backgroundImage: "/public/images/innovatebanner2.png",
+      backgroundImage: "/images/innovatebanner2.png",
       headline: "Empowering communities through",
       subline: "accessible digital education",
       ending: "for all generations."
     },
     {
       id: 3,
-      backgroundImage: "/public/images/innovatebanner3.png",
+      backgroundImage: "/images/innovatebanner3.png",
       headline: "Breaking down barriers with",
       subline: "innovative tech solutions",
       ending: "that connect people."
@@ -43,7 +43,7 @@ const HeroSection: React.FC = () => {
     },
     {
       id: 5,
-      backgroundImage: "/public/images/innovatebanner2.png",
+      backgroundImage: "/images/innovatebanner2.png",
       headline: "Fostering global",
       subline: "collaboration through",
       ending: "shared digital platforms."
