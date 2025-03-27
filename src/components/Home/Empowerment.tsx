@@ -1,7 +1,5 @@
-
-// import React, { useRef } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-// import React from "react";
 
 const EmpowermentSection = () => {
   const ref = useRef(null);
