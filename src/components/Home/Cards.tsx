@@ -20,12 +20,9 @@ const Card: React.FC<CardProps> = ({ icon, title, bgColor }) => {
           designed to bridge the digital divide, foster inclusivity,.....
         </p>
       </div>
-      {/* Wrapped in a div for better alignment */}
-      <div className="self-center mb-4">
-        <a href="#" className="text-lg font-bold text-green-600 hover:underline">
-          Learn More
-        </a>
-      </div>
+      <a href="#" className="text-lg font-bold text-green-600 hover:underline">
+        Learn More
+      </a>
     </div>
   );
 };
