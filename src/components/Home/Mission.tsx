@@ -1,6 +1,7 @@
 // import React from "react";
 import { motion } from "framer-motion";
 
+
 const MissionSection = () => {
   return (
     <section className="px-6 py-20 text-center text-white bg-blue-700">
@@ -50,22 +51,22 @@ const MissionSection = () => {
 
 const cards = [
   { 
-    icon: "/public/images/human_mind_state_icon.png", 
+    icon: "/images/human_mind_state_icon.png", 
     stat: "20+", 
     label: "Years of Experience" 
   },
   { 
-    icon: "/public/images/success_tick_icon.png", 
+    icon: "/images/success_tick_icon.png", 
     stat: "1,569", 
     label: "Successful Charities" 
   },
   { 
-    icon: "/public/images/dollar_money_sign_icon.png", 
+    icon: "/images/dollar_money_sign_icon.png", 
     stat: "$80M", 
     label: "Charitable Support" 
   },
   { 
-    icon: "/public/images/mountain top_opportunity_icon.png", 
+    icon: "/images/mountain top_opportunity_icon.png", 
     stat: "50+", 
     label: "Communities Reached" 
   },

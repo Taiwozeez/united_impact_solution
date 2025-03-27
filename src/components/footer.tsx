@@ -3,11 +3,11 @@
 const SubscribeSection = () => {
   // Social media icons data
   const socialIcons = [
-    { name: "facebook", src: "/public/images/evelopeicon.png" },
-    { name: "twitter", src: "/public/images/calendaricon.png" },
-    { name: "instagram", src: "/public/images/chatincon.png" },
-    { name: "linkedin", src: "/public/images/securityicon.png" },
-    { name: "linkedin", src: "/public/images/timeicon.png" },
+    { name: "facebook", src: "/images/evelopeicon.png" },
+    { name: "twitter", src: "/images/calendaricon.png" },
+    { name: "instagram", src: "/images/chatincon.png" },
+    { name: "linkedin", src: "/images/securityicon.png" },
+    { name: "linkedin", src: "/images/timeicon.png" },
   ];
 
   return (

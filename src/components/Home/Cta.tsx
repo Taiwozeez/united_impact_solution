@@ -37,7 +37,7 @@ const InnovateHub = () => {
           <div className="absolute inset-0 flex items-center pl-8 pr-0 md:pl-12">
             <div className="h-[80vh] w-full rounded-l-[30px] md:rounded-l-[40px] overflow-hidden shadow-xl">
               <img 
-                src="/public/images/techimg.png" 
+                src="/images/techimg.png" 
                 alt="Technology Innovation"
                 className="object-cover w-full h-full"
               />
