@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 
 const OurProject = () => {
   const projects = [
@@ -23,18 +23,18 @@ const OurProject = () => {
   ];
 
   return (
-    <section className="py-12 px-6 bg-white">
+    <section className="px-6 py-12 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-800">Our Projects</h2>
           <button className="px-6 py-2 border-2 border-[#5B913B] text-[#5B913B] rounded-full hover:bg-[#5B913B] hover:text-white transition">
             View All
           </button>
         </div>
-        <p className="text-gray-600 mt-2 max-w-2xl">
+        <p className="max-w-2xl mt-2 text-gray-600">
           At InnocuetHub We support digital literacy and technological resources, play a vital role in bridging the digital divide and empowering individuals and organizations. Here's an overview of the work and the impact we create:
         </p>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 mt-6 md:grid-cols-3">
           {projects.map((project) => (
             <div key={project.id} className="bg-white rounded-lg overflow-hidden h-[500px] w-full max-w-[400px] mx-auto"> {/* Added width control */}
               <img src={project.image} alt={project.title} className="w-full h-[60%] object-cover" />

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 
 interface FAQItem {
   question: string;
@@ -28,27 +28,44 @@ const faqData: FAQItem[] = [
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <div className="w-full max-w-6xl px-4 py-8 mx-auto sm:px-6">
+    <div className="w-full max-w-6xl px-4 py-8 mx-auto sm:px-6" ref={ref}>
       {/* Header */}
-      <div className="flex flex-col items-start justify-between gap-4 p-6 mb-8 bg-white border border-gray-100 shadow-sm sm:flex-row sm:items-center rounded-xl">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0, transition: { duration: 0.5 } } : {}}
+        className="flex flex-col items-start justify-between gap-4 p-6 mb-8 bg-white border border-gray-100 shadow-sm sm:flex-row sm:items-center rounded-xl"
+      >
         <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
           Want More Clarity?
         </h2>
         <span className="px-3 py-1 text-sm font-medium border rounded-full bg-emerald-50 text-emerald-600 border-emerald-100">
           FAQ
         </span>
-      </div>
+      </motion.div>
       
       <div className="space-y-3">
         {faqData.map((item, index) => (
-          <div
+          <motion.div
             key={index}
+            initial={{ x: -50, opacity: 0 }}
+            animate={isInView ? { 
+              x: 0, 
+              opacity: 1,
+              transition: {
+                delay: index * 0.1,
+                type: "spring",
+                stiffness: 100,
+                damping: 10
+              }
+            } : {}}
             className={`bg-white rounded-xl p-5 cursor-pointer transition-all duration-200
               ${openIndex === index ? "border-[1.5px] border-[#4A3AFF]" : "border border-gray-200"}
               shadow-sm hover:shadow-md`}
@@ -91,7 +108,7 @@ export default function FAQSection() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

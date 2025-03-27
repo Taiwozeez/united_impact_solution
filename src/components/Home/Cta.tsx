@@ -1,15 +1,15 @@
-import React from 'react';
+// import React from 'react';
 
 const InnovateHub = () => {
   return (
-    <div className="min-h-screen flex flex-col md:flex-row" style={{ backgroundColor: '#4A3AFF' }}>
+    <div className="flex flex-col min-h-screen md:flex-row" style={{ backgroundColor: '#4A3AFF' }}>
       {/* Left content section */}
-      <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+      <div className="flex flex-col justify-center w-full p-8 md:w-1/2 md:p-12">
         <div className="max-w-md mx-auto text-white">
           {/* Welcome text at the very top */}
-          <p className="text-xs uppercase tracking-widest mb-1">Welcome to</p>
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">InnovateHub</h1>
-          <p className="text-xl md:text-2xl mb-8">where technology meets empowerment!</p>
+          <p className="mb-1 text-xs tracking-widest uppercase">Welcome to</p>
+          <h1 className="mb-2 text-4xl font-bold md:text-5xl">InnovateHub</h1>
+          <p className="mb-8 text-xl md:text-2xl">where technology meets empowerment!</p>
           
           <div className="space-y-6">
             <p className="mb-6">
@@ -23,7 +23,7 @@ const InnovateHub = () => {
           
           {/* Button with custom blue color and white border */}
           <button 
-            className="mt-8 text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-lg border-2 border-white"
+            className="px-8 py-3 mt-8 font-bold text-white transition duration-300 border-2 border-white rounded-full shadow-lg"
             style={{ backgroundColor: '#4A3AFF' }}
           >
             Learn More
@@ -32,14 +32,14 @@ const InnovateHub = () => {
       </div>
 
       {/* Right image section */}
-      <div className="w-full md:w-1/2 relative">
+      <div className="relative w-full md:w-1/2">
         <div className="absolute inset-0 bg-white rounded-l-[30px] md:rounded-l-[40px] overflow-hidden">
-          <div className="absolute inset-0 pl-8 md:pl-12 pr-0 flex items-center">
+          <div className="absolute inset-0 flex items-center pl-8 pr-0 md:pl-12">
             <div className="h-[80vh] w-full rounded-l-[30px] md:rounded-l-[40px] overflow-hidden shadow-xl">
               <img 
                 src="/public/images/techimg.png" 
                 alt="Technology Innovation"
-                className="w-full h-full object-cover"
+                className="object-cover w-full h-full"
               />
             </div>
           </div>

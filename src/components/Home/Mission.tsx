@@ -1,19 +1,29 @@
-import React from "react";
+// import React from "react";
+import { motion } from "framer-motion";
 
 const MissionSection = () => {
   return (
-    <section className="bg-blue-700 text-white py-20 px-6 text-center">
+    <section className="px-6 py-20 text-center text-white bg-blue-700">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-4xl font-bold mb-6">Our Mission</h2>
-        <p className="text-lg md:text-xl leading-relaxed mb-12">
+        <h2 className="mb-6 text-4xl font-bold">Our Mission</h2>
+        <p className="mb-12 text-lg leading-relaxed md:text-xl">
           We harness the power of technology and innovation to drive sustainable development, bridge digital divides, and empower communities worldwide. We are committed to advancing education, fostering inclusivity, and enabling solutions that address global challenges through ethical and responsible technological practices.
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      <div className="grid max-w-6xl grid-cols-1 gap-8 mx-auto md:grid-cols-4">
         {cards.map((card, index) => (
-          <div 
+          <motion.div 
             key={index} 
-            className="p-8 rounded-lg shadow-lg h-72 flex flex-col items-center"
+            initial={{ opacity: 0, y: 50 }} 
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 150, // Adjusts the bounce intensity
+              damping: 10, // Controls how fast it settles
+              delay: index * 0.2 // Staggered appearance
+            }}
+            className="flex flex-col items-center p-8 rounded-lg shadow-lg h-72"
             style={{ backgroundColor: '#3629C3' }}  
           >
             <div className="relative flex items-center justify-center mb-10">
@@ -21,17 +31,17 @@ const MissionSection = () => {
               <img 
                 src={card.icon} 
                 alt={card.label} 
-                className="h-16 w-16 object-contain relative z-10" 
+                className="relative z-10 object-contain w-16 h-16" 
               />
             </div>
             <div className="mt-6 space-y-2">
               <h3 className="text-3xl font-bold">{card.stat}</h3>
-              <p className="text-lg pt-2">{card.label}</p>
+              <p className="pt-2 text-lg">{card.label}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-      <button className="mt-14 px-8 py-4 bg-blue-700 text-white font-bold rounded-full shadow-lg hover:bg-blue-800 transition text-lg border-2 border-white">
+      <button className="px-8 py-4 text-lg font-bold text-white transition bg-blue-700 border-2 border-white rounded-full shadow-lg mt-14 hover:bg-blue-800">
         Learn More
       </button>
     </section>

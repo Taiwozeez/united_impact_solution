@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { CheckCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface Slide {
   id: number;
@@ -11,6 +12,9 @@ interface Slide {
 
 const HeroSection: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [initialLoad, setInitialLoad] = useState(true);
+  const [badgesInView, setBadgesInView] = useState(false);
+  const badgesRef = useRef<HTMLDivElement>(null);
   
   const slides: Slide[] = [
     {
@@ -54,9 +58,63 @@ const HeroSection: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
+      setInitialLoad(false);
     }, 5000);
     return () => clearInterval(interval);
   }, [slides.length]);
+
+  // Intersection Observer for trust badges
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setBadgesInView(true);
+        }
+      },
+      {
+        threshold: 0.5,
+      }
+    );
+
+    if (badgesRef.current) {
+      observer.observe(badgesRef.current);
+    }
+
+    return () => {
+      if (badgesRef.current) {
+        observer.unobserve(badgesRef.current);
+      }
+    };
+  }, []);
+
+  // Animation configuration for text
+  const textAnimation = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "backOut"
+      }
+    }
+  };
+
+  const renderText = (text: string, className: string, delay: number = 0) => {
+    return currentSlide === 0 && initialLoad ? (
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={textAnimation}
+        transition={{ delay }}
+        className={className}
+      >
+        {text}
+      </motion.div>
+    ) : (
+      <div className={className}>{text}</div>
+    );
+  };
 
   return (
     <section className="relative w-full">
@@ -80,16 +138,21 @@ const HeroSection: React.FC = () => {
               
               {/* Slide Content */}
               <div className="relative flex items-center justify-center h-full">
-                <div className="max-w-15xl px-4 text-center">
-                  <h1 className="text-3xl font-bold text-white md:text-5xl">
-                    {slide.headline}
-                  </h1>
-                  <p className="mt-4 text-3xl font-bold text-purple-300 md:text-5xl">
-                    {slide.subline}
-                  </p>
-                  <p className="mt-4 text-3xl font-bold text-white md:text-5xl">
-                    {slide.ending}
-                  </p>
+                <div className="px-4 text-center max-w-15xl">
+                  {renderText(
+                    slide.headline, 
+                    "text-3xl font-bold text-white md:text-5xl"
+                  )}
+                  {renderText(
+                    slide.subline, 
+                    "mt-4 text-3xl font-bold text-purple-300 md:text-5xl",
+                    0.2
+                  )}
+                  {renderText(
+                    slide.ending, 
+                    "mt-4 text-3xl font-bold text-white md:text-5xl",
+                    0.4
+                  )}
                 </div>
               </div>
             </div>
@@ -101,7 +164,10 @@ const HeroSection: React.FC = () => {
           {slides.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentSlide(index)}
+              onClick={() => {
+                setCurrentSlide(index);
+                setInitialLoad(false);
+              }}
               className={`rounded-full transition-all duration-300 ${
                 currentSlide === index 
                   ? "w-4 h-4 bg-white" 
@@ -120,17 +186,17 @@ const HeroSection: React.FC = () => {
           <img src="/images/Frame1.png" alt="Logo" className="w-24 h-24 md:w-32 md:h-32" />
         </div>
 
-        {/* Blue Content Card */}
+        {/* Blue Content Card - Removed bounce effect */}
         <div className="relative mx-auto w-[90%] max-w-[1600px] p-6 md:p-10 mb-10 md:mb-16 mt-12 md:mt-16 text-white bg-[#4A3AFF] shadow-md rounded-[30px] md:rounded-[50px] h-auto md:h-[500px] flex flex-col justify-between">
           {/* Text Content */}
-          <div className="flex flex-col gap-6 md:gap-8 mt-6 md:mt-10 md:flex-row">
+          <div className="flex flex-col gap-6 mt-6 md:gap-8 md:mt-10 md:flex-row">
             <div className="flex items-start w-full md:w-1/3">
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight text-left">
+              <h2 className="text-3xl font-bold leading-tight text-left md:text-4xl">
                 We bring a lot hope for the future
               </h2>
             </div>
             <div className="flex items-start w-full md:w-2/3">
-              <p className="text-xl md:text-2xl leading-normal text-left">
+              <p className="text-xl leading-normal text-left md:text-2xl">
                 We are committed to advancing digital literacy and technological
                 empowerment through innovative programs and impactful partnerships.
                 Our initiatives are designed to bridge the digital divide, foster
@@ -140,17 +206,47 @@ const HeroSection: React.FC = () => {
             </div>
           </div>
           
-          {/* Trust Badges */}
-          <div className="flex flex-col md:flex-row justify-center md:justify-start gap-4 md:gap-10 my-6 md:mb-10">
-            <div className="flex items-center justify-center py-2 md:py-3 text-base md:text-lg text-[#379966] bg-white border-4 border-white px-6 md:px-[50px] rounded-3xl">
+          {/* Trust Badges with sequential pop animation */}
+          <div ref={badgesRef} className="flex flex-col justify-center gap-4 my-6 md:flex-row md:justify-start md:gap-10 md:mb-10">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={badgesInView ? { scale: 1 } : {}}
+              transition={{ 
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.1
+              }}
+              className="flex items-center justify-center py-2 md:py-3 text-base md:text-lg text-[#379966] bg-white border-4 border-white px-6 md:px-[50px] rounded-3xl"
+            >
               <CheckCircle className="mr-2" size={18} /> Trusted Community
-            </div>
-            <div className="flex items-center justify-center py-2 md:py-3 text-base md:text-lg text-[#379966] bg-white border-4 border-white px-6 md:px-[50px] rounded-3xl">
+            </motion.div>
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={badgesInView ? { scale: 1 } : {}}
+              transition={{ 
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.3
+              }}
+              className="flex items-center justify-center py-2 md:py-3 text-base md:text-lg text-[#379966] bg-white border-4 border-white px-6 md:px-[50px] rounded-3xl"
+            >
               <CheckCircle className="mr-2" size={18} /> Full Documentary
-            </div>
-            <div className="flex items-center justify-center py-2 md:py-3 text-base md:text-lg text-[#379966] bg-white border-4 border-white px-6 md:px-[50px] rounded-3xl">
+            </motion.div>
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={badgesInView ? { scale: 1 } : {}}
+              transition={{ 
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.5
+              }}
+              className="flex items-center justify-center py-2 md:py-3 text-base md:text-lg text-[#379966] bg-white border-4 border-white px-6 md:px-[50px] rounded-3xl"
+            >
               <CheckCircle className="mr-2" size={18} /> Non-Profit Community
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
