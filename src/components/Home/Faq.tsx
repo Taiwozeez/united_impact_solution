@@ -1,116 +1,156 @@
-import { useState, useRef } from "react";
-import { ChevronDown, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import React, { useState } from 'react';
 
-interface FAQItem {
-  question: string;
-  answer: string | JSX.Element;
-}
+const Faq = () => {
+  const [activeIndex, setActiveIndex] = useState(1); // Start with question 2 active (0-based index would be 1)
 
-const faqData: FAQItem[] = [
-  {
-    question: "What is InnovateHub?",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    question: "What are the benefits of joining the community?",
-    answer: ""
-  },
-  {
-    question: "Do you provide financial Support?",
-    answer: ""
-  },
-  {
-    question: "How do I get started?",
-    answer: "You can get started by signing up on our platform and completing your profile."
-  }
-];
-
-export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
+  const toggleAccordion = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
   };
 
+  const leftFaqs = [
+    {
+      id: 1,
+      question: "What services does United Impact Solutions offer?",
+      answer: "We provide a range of services to empower social enterprises and community-focused businesses, including strategic planning, impact measurement, community engagement strategies, and business development support."
+    },
+    {
+      id: 2,
+      question: "How will your approach help my organization?",
+      answer: "Our team blends business expertise with a focus on social and environmental impact. We tailor solutions that help you make a real difference in your community while ensuring financial sustainability."
+    },
+    {
+      id: 3,
+      question: "Which types of organizations do you work with?",
+      answer: "We partner with nonprofits, cooperatives, charities, and socially driven for-profit enterprises across various sectors—like health, education, and the environment."
+    },
+    {
+      id: 4,
+      question: "Do you only work with established organizations?",
+      answer: "Not at all. Whether you're just getting started with a social enterprise idea or looking to scale an existing initiative, we can guide you every step of the way."
+    }
+  ];
+
+  const rightFaqs = [
+    {
+      id: 5,
+      question: "Are your programs customized?",
+      answer: "Absolutely! Every organization has unique needs, so we tailor our consulting, workshops, and coaching sessions to help you reach your specific mission and goals."
+    },
+    {
+      id: 6,
+      question: "How important is measuring impact?",
+      answer: "Measuring your social or environmental impact is vital for proving your value to funders, stakeholders, and the community. We'll guide you in selecting the right metrics and tools."
+    },
+    {
+      id: 7,
+      question: "How do you ensure long-term sustainability?",
+      answer: "Our strategies balance financial viability with social good, ensuring that you can continue making a positive impact for years to come."
+    },
+    {
+      id: 8,
+      question: "How soon can we expect results?",
+      answer: "Timelines vary based on your project's complexity, but many organizations begin seeing improvements in community engagement and operational efficiency within a few months."
+    }
+  ];
+
   return (
-    <div className="w-full max-w-6xl px-4 py-8 mx-auto sm:px-6" ref={ref}>
-      {/* Header */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0, transition: { duration: 0.5 } } : {}}
-        className="flex flex-col items-start justify-between gap-4 p-6 mb-8 bg-white border border-gray-100 shadow-sm sm:flex-row sm:items-center rounded-xl"
-      >
-        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          Want More Clarity?
-        </h2>
-        <span className="px-3 py-1 text-sm font-medium border rounded-full bg-emerald-50 text-emerald-600 border-emerald-100">
-          FAQ
-        </span>
-      </motion.div>
-      
-      <div className="space-y-3">
-        {faqData.map((item, index) => (
-          <motion.div
-            key={index}
-            initial={{ x: -50, opacity: 0 }}
-            animate={isInView ? { 
-              x: 0, 
-              opacity: 1,
-              transition: {
-                delay: index * 0.1,
-                type: "spring",
-                stiffness: 100,
-                damping: 10
-              }
-            } : {}}
-            className={`bg-white rounded-xl p-5 cursor-pointer transition-all duration-200
-              ${openIndex === index ? "border-[1.5px] border-[#4A3AFF]" : "border border-gray-200"}
-              shadow-sm hover:shadow-md`}
-            onClick={() => toggleFAQ(index)}
-          >
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900">
-                {item.question}
-              </h3>
-              <div className={`flex items-center justify-center w-7 h-7 rounded-full transition-colors
-                ${openIndex === index ? "bg-[#4A3AFF]" : "bg-gray-50"}
-                shadow-xs`}>
-                {openIndex === index ? (
-                  <ChevronDown className="w-4 h-4 text-white" />
-                ) : (
-                  <ChevronRight className="w-4 h-4 text-gray-500" />
-                )}
-              </div>
-            </div>
-            
-            <AnimatePresence>
-              {openIndex === index && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="overflow-hidden"
+    <section className="pt-[150px] pb-[115px] bg-[#f4f5fc]">
+      <div className="container px-4 mx-auto">
+        {/* Section Title */}
+        <div className="text-center mb-[30px]">
+          <h2 className="text-4xl font-bold">Your Questions, Answered!</h2>
+        </div>
+
+        <div className="flex flex-col lg:flex-row">
+          {/* Left Column FAQ */}
+          <div className="w-full lg:w-1/2 lg:pr-[33px]">
+            <div className="space-y-4">
+              {leftFaqs.map((faq) => (
+                <div 
+                  key={faq.id}
+                  className={`border-b border-[#d5dcf7] ${activeIndex === faq.id ? 'active' : ''}`}
                 >
-                  <div className="mt-4 text-gray-600">
-                    {item.answer || (
-                      <ul className="pl-5 space-y-2 list-disc">
-                        <li>Access to exclusive resources and networking opportunities</li>
-                        <li>Professional mentorship programs</li>
-                        <li>Potential funding and investment connections</li>
-                        <li>Skill development workshops</li>
-                      </ul>
-                    )}
+                  <button
+                    className={`w-full text-left py-[25px] pl-[68px] relative text-[20px] font-medium text-[#212877] tracking-tight`}
+                    onClick={() => toggleAccordion(faq.id)}
+                  >
+                    <span className={`absolute left-0 top-[14px] w-12 h-12 flex items-center justify-center border border-[#e9eced] rounded-lg shadow-[0_4px_4px_0_#eaecf8] bg-white ${activeIndex === faq.id ? 'bg-[#1438bc] text-white' : 'text-[#1438bc]'}`}>
+                      {faq.id}
+                    </span>
+                    {faq.question}
+                    <span className="absolute right-[10px] top-1/2 transform -translate-y-1/2">
+                      {activeIndex === faq.id ? (
+                        <span className="text-[#212877]">−</span>
+                      ) : (
+                        <span className="text-[#212877]">+</span>
+                      )}
+                    </span>
+                  </button>
+                  <div className={`overflow-hidden transition-all duration-300 ${activeIndex === faq.id ? 'max-h-[200px]' : 'max-h-0'}`}>
+                    <div className="pb-[25px] pl-[68px] pr-[70px]">
+                      <p className="text-[#212877]">{faq.answer}</p>
+                    </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column FAQ */}
+          <div className="w-full lg:w-1/2 lg:pl-[33px] mt-8 lg:mt-0">
+            <div className="space-y-4">
+              {rightFaqs.map((faq) => (
+                <div 
+                  key={faq.id}
+                  className={`border-b border-[#d5dcf7] ${activeIndex === faq.id ? 'active' : ''}`}
+                >
+                  <button
+                    className={`w-full text-left py-[25px] pl-[68px] relative text-[20px] font-medium text-[#212877] tracking-tight`}
+                    onClick={() => toggleAccordion(faq.id)}
+                  >
+                    <span className={`absolute left-0 top-[14px] w-12 h-12 flex items-center justify-center border border-[#e9eced] rounded-lg shadow-[0_4px_4px_0_#eaecf8] bg-white ${activeIndex === faq.id ? 'bg-[#1438bc] text-white' : 'text-[#1438bc]'}`}>
+                      {faq.id}
+                    </span>
+                    {faq.question}
+                    <span className="absolute right-[10px] top-1/2 transform -translate-y-1/2">
+                      {activeIndex === faq.id ? (
+                        <span className="text-[#212877]">−</span>
+                      ) : (
+                        <span className="text-[#212877]">+</span>
+                      )}
+                    </span>
+                  </button>
+                  <div className={`overflow-hidden transition-all duration-300 ${activeIndex === faq.id ? 'max-h-[200px]' : 'max-h-0'}`}>
+                    <div className="pb-[25px] pl-[68px] pr-[70px]">
+                      <p className="text-[#212877]">{faq.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <div className="text-center mt-[70px]">
+          <a href="#!" className="relative inline-block overflow-hidden group">
+            <div className="absolute inset-0 hidden group-hover:block">
+              <span className="absolute inset-0 flex items-center justify-center text-white">
+                Book a Discovery Call
+              </span>
+            </div>
+            <div className="relative flex items-center px-6 py-3 bg-[#1438bc] rounded-full text-white">
+              <span className="block group-hover:hidden">Book a Discovery Call</span>
+              <div className="ml-3 w-8 h-8 flex items-center justify-center rounded-full bg-white group-hover:bg-[#53baff] transition">
+                <span className="text-[#1438bc] group-hover:text-white">+</span>
+              </div>
+              <span className="hidden ml-3 group-hover:block">Book a Discovery Call</span>
+            </div>
+          </a>
+        </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
+
+export default Faq;

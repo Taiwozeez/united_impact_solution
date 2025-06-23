@@ -1,101 +1,120 @@
-"use client"
+import React, { useState, useEffect } from 'react';
 
-import { useState } from "react"
-import { Menu } from "lucide-react"
+const Header = () => {
+  const [isSticky, setIsSticky] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  useEffect(() => {
+    // Simulate page loading
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
-    <nav className="py-5 bg-white shadow-md">
-      <div className="container flex items-center justify-between px-4 mx-auto md:px-8">
-        {/* Mobile Hamburger Menu */}
-        <div className="block md:hidden">
-          <button onClick={() => setIsOpen(true)} className="p-1 focus:outline-none">
-            <Menu className="w-6 h-6" />
-            <span className="sr-only">Toggle menu</span>
-          </button>
+    <>
+      {/* Preloader */}
+      {isLoading && (
+        <div 
+          id="xb-loadding" 
+          className="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 bg-white"
+          style={{ opacity: isLoading ? 1 : 0, pointerEvents: isLoading ? 'auto' : 'none' }}
+        >
+          <div className="w-16 h-16 border-t-4 border-b-4 border-blue-600 rounded-full animate-spin"></div>
+        </div>
+      )}
 
-          {/* Mobile Menu Overlay */}
-          {isOpen && (
-            <div className="fixed inset-0 z-50 flex bg-black bg-opacity-50" onClick={() => setIsOpen(false)}>
-              <div className="w-[250px] bg-white h-full p-5" onClick={(e) => e.stopPropagation()}>
-                <button className="mb-5 text-gray-500" onClick={() => setIsOpen(false)}>
-                  ✕ Close
-                </button>
-                <nav className="flex flex-col gap-6">
-                  <a
-                    href="#"
-                    className="text-lg font-medium text-gray-800 transition-colors hover:text-[#4a7e32]"
-                    onClick={() => setIsOpen(false)}
+      {/* Header */}
+      <header 
+        id="xb-header-area" 
+        className={`header-area ${isSticky ? 'fixed top-0 bg-white shadow-md' : 'absolute top-[35px]'} left-0 right-0 w-full z-30 transition-all duration-300`}
+      >
+        <div className={`xb-header ${isSticky ? 'stricky-fixed' : ''}`}>
+          <div className="container px-4 mx-auto">
+            <div className="flex items-center justify-between py-4">
+              {/* Logo */}
+              <div className="header-logo">
+                <a href="/" className="inline-block">
+                  <img 
+                    id="white-logo" 
+                    src="/images/logo06.svg" 
+                    alt="Logo" 
+                    className={`h-8 ${isSticky ? 'hidden' : 'block'}`}
+                  />
+                  <img 
+                    src="/images/logo06_dark.svg" 
+                    alt="Logo" 
+                    className={`h-8 ${isSticky ? 'block' : 'hidden'}`}
+                  />
+                </a>
+              </div>
+
+              {/* Navigation */}
+              <div className="flex items-center">
+                {/* Desktop Menu */}
+                <div className="hidden xl:flex items-center ml-0 mr-[109px]">
+                  <nav className="main-menu">
+                    <ul className="flex space-x-1">
+                      {['Home', 'About', 'Services', 'Vlog', 'Blog', 'Podcast', 'Shop'].map((item) => (
+                        <li key={item}>
+                          <a 
+                            href={item.toLowerCase()} 
+                            className={`px-5 py-5 ${isSticky ? 'text-gray-800' : 'text-white'} font-medium hover:text-blue-800 transition-colors duration-200`}
+                          >
+                            {item}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                </div>
+
+                {/* Mobile Menu Button */}
+                <div className="xl:hidden">
+                  <button className="p-2 text-gray-800 focus:outline-none">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Get Started Button */}
+                <div className="hidden ml-4 md:block">
+                  <a 
+                    href="/contact" 
+                    className={`inline-flex items-center px-6 py-3 rounded-full font-medium transition-all duration-200 ${
+                      isSticky 
+                        ? 'text-white bg-blue-800 hover:bg-blue-900' 
+                        : 'text-blue-800 bg-white hover:bg-gray-100'
+                    }`}
                   >
-                    About Us
+                    Get Started
+                    <span className={`ml-3 flex items-center justify-center w-6 h-6 rounded-full ${
+                      isSticky ? 'bg-white text-blue-800' : 'bg-blue-800 text-white'
+                    }`}>
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                    </span>
                   </a>
-                  <a
-                    href="#"
-                    className="text-lg font-medium text-gray-800 transition-colors hover:text-[#4a7e32]"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Blog
-                  </a>
-                  <a
-                    href="#"
-                    className="text-lg font-medium text-gray-800 transition-colors hover:text-[#4a7e32]"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Donations
-                  </a>
-                  <a
-                    href="#"
-                    className="text-lg font-medium text-gray-800 transition-colors hover:text-[#4a7e32]"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Contact Us
-                  </a>
-                </nav>
+                </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
+      </header>
+    </>
+  );
+};
 
-        {/* Desktop Navigation Links */}
-        <ul className="hidden space-x-8 md:space-x-12 lg:space-x-20 md:flex">
-          <li>
-            <a href="#" className="text-lg font-medium text-gray-800 transition-colors hover:text-[#4a7e32]">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="#" className="text-lg font-medium text-gray-800 transition-colors hover:text-[#4a7e32]">
-              Blog
-            </a>
-          </li>
-          <li>
-            <a href="#" className="text-lg font-medium text-gray-800 transition-colors hover:text-[#4a7e32]">
-              Donations
-            </a>
-          </li>
-          <li>
-            <a href="#" className="text-lg font-medium text-gray-800 transition-colors hover:text-[#4a7e32]">
-              Contact Us
-            </a>
-          </li>
-        </ul>
-
-        {/* Center - Logo */}
-        <div className="absolute transform -translate-x-1/2 left-1/2">
-          <img src="/logo.png" alt="Logo" className="w-auto h-12" />
-        </div>
-
-        {/* Right - Donate Button */}
-        <button
-          className="px-4 py-2 text-sm md:text-lg md:px-6 md:py-3 font-semibold text-white transition-colors rounded-full shadow-md hover:bg-[#4a7e32]"
-          style={{ backgroundColor: "#5B913B" }}
-        >
-          Donate Now
-        </button>
-      </div>
-    </nav>
-  )
-}
-
+export default Header;

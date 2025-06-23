@@ -1,52 +1,75 @@
-// import React from 'react';
+import React from "react";
 
-const InnovateHub = () => {
+const Cta = () => {
   return (
-    <div className="flex flex-col min-h-screen md:flex-row" style={{ backgroundColor: '#4A3AFF' }}>
-      {/* Left content section */}
-      <div className="flex flex-col justify-center w-full p-8 md:w-1/2 md:p-12">
-        <div className="max-w-md mx-auto text-white">
-          {/* Welcome text at the very top */}
-          <p className="mb-1 text-xs tracking-widest uppercase">Welcome to</p>
-          <h1 className="mb-2 text-4xl font-bold md:text-5xl">InnovateHub</h1>
-          <p className="mb-8 text-xl md:text-2xl">where technology meets empowerment!</p>
-          
-          <div className="space-y-6">
-            <p className="mb-6">
-              We are a forward-thinking foundation committed to engaging the digital culture and unlocking potential for investor relationships. At innovation, we believe that innovation is the key to opportunity, and our mission is to ensure that no one is just behind in the digital world. Whether you can be trusted or agile in terms of skills, or financial standing to simplify your impacts on a community bearing its ethics through technological resources, innovations in your trusted partner.
+    <section className="w-full">
+      <div className="flex flex-wrap md:flex-nowrap">
+        {/* Quote Section */}
+        <div
+          className={`
+            w-full md:w-[59.1%] min-h-[645px] bg-[#1438bc] flex items-center
+            px-5 sm:px-10 lg:px-[50px] xl:px-[165px] 2xl:pl-[240px] py-[93px] 2xl:py-[100px]
+          `}
+        >
+          <div className="max-w-3xl">
+            <span className="block mb-6">
+              <img src="/images/quote02.png" alt="Quote" />
+            </span>
+            <p
+              className={`
+                text-white font-medium mt-10 mb-8
+                text-[26px] leading-[42px] 
+                md:text-[45px] md:leading-[58px] md:tracking-[-0.01em]
+              `}
+            >
+              “I started United Impact Solutions because I believe business should be a force for good. Our work is
+              about helping socially minded entrepreneurs create real, measurable change for their communities because
+              when our impact grows, everyone wins.”
             </p>
-            
-            <p>
-              Together, we're just solving problems – we're creating possibilities: where we're building a network, more connected issues for all.
-            </p>
-          </div>
-          
-          {/* Button with custom blue color and white border */}
-          <button 
-            className="px-8 py-3 mt-8 font-bold text-white transition duration-300 border-2 border-white rounded-full shadow-lg"
-            style={{ backgroundColor: '#4A3AFF' }}
-          >
-            Learn More
-          </button>
-        </div>
-      </div>
 
-      {/* Right image section */}
-      <div className="relative w-full md:w-1/2">
-        <div className="absolute inset-0 bg-white rounded-l-[30px] md:rounded-l-[40px] overflow-hidden">
-          <div className="absolute inset-0 flex items-center pl-8 pr-0 md:pl-12">
-            <div className="h-[80vh] w-full rounded-l-[30px] md:rounded-l-[40px] overflow-hidden shadow-xl">
-              <img 
-                src="/images/techimg.png" 
-                alt="Technology Innovation"
-                className="object-cover w-full h-full"
-              />
+            <div className="flex items-center gap-6 mt-[50px]">
+              <div className="inline-block border-[3px] border-[#53baff] rounded-full overflow-hidden w-[64px] h-[64px]">
+                <img src="/images/da-img_1.png" alt="Author" className="object-cover w-full h-full" />
+              </div>
+              <div>
+                <h3 className="text-white font-medium text-[22px] mb-[5px]">Onyedikachi Agbiogwu</h3>
+                <span className="text-[#c4cdec] text-sm block">Founder - United Impact Solutions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div
+          className={`
+            w-full md:w-[40.9%] min-h-[645px] bg-[#53baff] flex items-center
+            px-5 sm:px-[30px] md:px-[50px] xl:px-[135px] py-[50px] md:py-0
+          `}
+        >
+          <div>
+            <h2
+              className={`
+                text-white font-semibold
+                text-[40px] leading-[55px] tracking-[-0.02em]
+                xl:text-[50px] xl:leading-[64px]
+              `}
+            >
+              Partner with us to unlock the full potential of your mission.
+            </h2>
+            <div className="mt-12">
+              <a
+                href="#!"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#53baff] font-semibold rounded-full shadow hover:bg-gray-100 transition"
+              >
+                <span>Book a Discover Call</span>
+                <i className="fal fa-plus" />
+              </a>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default InnovateHub;
+export default Cta;

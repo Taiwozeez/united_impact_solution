@@ -1,75 +1,82 @@
-// import React from "react";
+import React from 'react';
 
-const SubscribeSection = () => {
-  // Social media icons data
-  const socialIcons = [
-    { name: "facebook", src: "/images/evelopeicon.png" },
-    { name: "twitter", src: "/images/calendaricon.png" },
-    { name: "instagram", src: "/images/chatincon.png" },
-    { name: "linkedin", src: "/images/securityicon.png" },
-    { name: "linkedin", src: "/images/timeicon.png" },
-  ];
-
+const Footer = () => {
   return (
-    <div className="w-full pt-16 pb-16 text-white bg-[#222629]">
-      <div className="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
-        <div className="bg-[#4A3AFF] rounded-lg p-6 md:p-16 mb-12 md:mb-16 text-center">
-          <button className="px-6 py-3 mb-6 text-sm text-white bg-indigo-800 rounded-full">
-            Subscribe to our Community
-          </button>
-          <h2 className="mb-4 text-2xl font-bold md:text-3xl">Join Our Community to Get Informed</h2>
-          
-          {/* Mobile-optimized input and button */}
-          <div className="flex flex-col items-center max-w-4xl mx-auto mt-8 md:block">
-            <div className="relative w-full">
-              <input
-                type="email"
-                className="w-full h-14 md:h-16 pl-4 pr-32 md:pl-8 md:pr-28 py-3 text-white outline-none text-base md:text-lg bg-[#4A3AFF] placeholder-white border-2 border-white rounded-full"
-                placeholder="Email Address"
-              />
-              <button className="absolute top-1/2 right-1 transform -translate-y-1/2 bg-white text-[#4A3AFF] px-4 md:px-8 font-bold text-sm md:text-lg hover:bg-gray-200 transition rounded-full border-2 border-white h-10 md:h-14">
-                Subscribe
-              </button>
-            </div>
-          </div>
-          
-          <p className="max-w-2xl mx-auto mt-8 text-base text-blue-100 md:text-lg">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis, ex sed ultricies feugiat, enim elit interdum quam, et vulputate justo ex ut diam.
-          </p>
-        </div>
+    <footer className="footer pb-[80px] bg-cover bg-center relative" style={{ backgroundImage: "url('assets/img/bg/da-footer.jpg')" }}>
+      {/* Marquee Title */}
+      <div className="py-8 overflow-hidden da-footer-title">
+        <h2 className="title text-[150px] font-extrabold text-[#1438bc] tracking-tight whitespace-nowrap animate-marquee">
+          <a href="/contact.html" className="inline-block">
+            Book a Discovery Call Now
+            <span className="text-transparent ml-[30px] [-webkit-text-stroke:2px_#1438BC]">Empower Your Mission—Let's Create Change Together.</span>
+          </a>
+        </h2>
+      </div>
 
-        <div className="py-8 text-center md:py-12">
-          <div className="flex flex-wrap justify-center gap-4 mb-6 text-base text-gray-300 md:gap-8 md:text-lg md:mb-8">
-            <a href="#" className="hover:text-white">Service</a>
-            <a href="#" className="hover:text-white">Support</a>
-            <a href="#" className="hover:text-white">Company</a>
-            <a href="#" className="hover:text-white">Legal</a>
-            <a href="#" className="hover:text-white">Join Us</a>
-          </div>
-
-          {/* Social media icons */}
-          <div className="flex justify-center gap-4 mb-6 md:gap-6 md:mb-8">
-            {socialIcons.map((icon) => (
-              <div 
-                key={icon.name}
-                className="w-8 h-8 md:w-10 md:h-10 bg-[#3B4857] rounded-full flex items-center justify-center hover:bg-opacity-90 transition-all cursor-pointer"
-              >
-                <img 
-                  src={icon.src} 
-                  alt={icon.name} 
-                  className="object-contain w-4 h-4 md:w-5 md:h-5" 
-                />
+      <div className="container px-4 mx-auto">
+        <div className="bg-white mt-[117px] px-[105px] py-[78px] rounded-3xl shadow-[0_19px_28px_0_rgba(25,28,51,0.05)]">
+          <div className="flex flex-col items-start justify-between gap-8 md:flex-row">
+            {/* Logo & Tagline */}
+            <div className="flex-1">
+              <div className="inline-block mt-[20px]">
+                <a href="index.html">
+                  <img src="images/logo07.svg" alt="United Impact Solutions Logo" className="h-auto" />
+                </a>
               </div>
-            ))}
+              <p className="font-semibold text-xs bg-[#f4f5fc] px-[17px] py-[6px] rounded-full shadow-[0_1px_2px_0_rgba(0,0,0,0.06),0_0_0_1px_rgba(0,0,0,0.06)] mt-[20px] inline-block">
+                We collaborate with nonprofits, entrepreneurs, and businesses to create meaningful change in our communities.
+              </p>
+            </div>
+
+            {/* Navigation */}
+            <nav className="flex-1">
+              <ul className="flex flex-wrap gap-[51px] list-none">
+                {['About', 'Services', 'Impact Stories', 'Resources', 'Contact'].map((item) => (
+                  <li key={item} className="relative group">
+                    <a 
+                      href={item === 'About' ? '/about.html' : item === 'Contact' ? '/contact.html' : '#!'}
+                      className="font-extrabold text-base text-current group-hover:text-[#1438bc] transition-colors"
+                    >
+                      {item}
+                    </a>
+                    <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#1438bc] opacity-0 group-hover:w-full group-hover:opacity-100 transition-all duration-300"></div>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
-          <p className="text-sm text-gray-500 md:text-md">
-            Designed By &copy; Edoubleone inc 2025. All right reserved
-          </p>
+          {/* Footer Bottom */}
+          <div className="border-t border-[#e3e3e3] pt-[35px] mt-[40px] flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-[#212877]">
+              ©2025 <a href="index.html" className="hover:underline">United Impact Solutions</a>. All rights reserved.
+            </p>
+            <ul className="flex gap-4">
+              <li className="relative pr-4">
+                <a href="#!" className="text-[#212877] hover:underline">Terms of Service</a>
+                <span className="absolute right-0 top-1/2 -translate-y-1/2 w-0.5 h-0.5 bg-[#212877] rounded-full"></span>
+              </li>
+              <li>
+                <a href="#!" className="text-[#212877] hover:underline">Privacy Policy</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Marquee Animation */}
+      <style jsx>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          display: inline-block;
+          animation: marquee 20s linear infinite;
+        }
+      `}</style>
+    </footer>
   );
 };
 
-export default SubscribeSection;
+export default Footer;
