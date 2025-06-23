@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const Faq = () => {
   const [activeIndex, setActiveIndex] = useState(1); // Start with question 2 active (0-based index would be 1)
