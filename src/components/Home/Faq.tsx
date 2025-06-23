@@ -1,13 +1,19 @@
 import { useState } from 'react';
 
-const Faq = () => {
-  const [activeIndex, setActiveIndex] = useState(1); // Start with question 2 active (0-based index would be 1)
+type FaqItem = {
+  id: number;
+  question: string;
+  answer: string;
+};
 
-  const toggleAccordion = (index) => {
+const Faq = () => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(1); // Start with second FAQ active
+
+  const toggleAccordion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
-  const leftFaqs = [
+  const leftFaqs: FaqItem[] = [
     {
       id: 1,
       question: "What services does United Impact Solutions offer?",
@@ -30,7 +36,7 @@ const Faq = () => {
     }
   ];
 
-  const rightFaqs = [
+  const rightFaqs: FaqItem[] = [
     {
       id: 5,
       question: "Are your programs customized?",
@@ -56,7 +62,6 @@ const Faq = () => {
   return (
     <section className="pt-[150px] pb-[115px] bg-[#f4f5fc]">
       <div className="container px-4 mx-auto">
-        {/* Section Title */}
         <div className="text-center mb-[30px]">
           <h2 className="text-4xl font-bold">Your Questions, Answered!</h2>
         </div>
@@ -66,12 +71,9 @@ const Faq = () => {
           <div className="w-full lg:w-1/2 lg:pr-[33px]">
             <div className="space-y-4">
               {leftFaqs.map((faq) => (
-                <div 
-                  key={faq.id}
-                  className={`border-b border-[#d5dcf7] ${activeIndex === faq.id ? 'active' : ''}`}
-                >
+                <div key={faq.id} className={`border-b border-[#d5dcf7] ${activeIndex === faq.id ? 'active' : ''}`}>
                   <button
-                    className={`w-full text-left py-[25px] pl-[68px] relative text-[20px] font-medium text-[#212877] tracking-tight`}
+                    className="w-full text-left py-[25px] pl-[68px] relative text-[20px] font-medium text-[#212877] tracking-tight"
                     onClick={() => toggleAccordion(faq.id)}
                   >
                     <span className={`absolute left-0 top-[14px] w-12 h-12 flex items-center justify-center border border-[#e9eced] rounded-lg shadow-[0_4px_4px_0_#eaecf8] bg-white ${activeIndex === faq.id ? 'bg-[#1438bc] text-white' : 'text-[#1438bc]'}`}>
@@ -100,12 +102,9 @@ const Faq = () => {
           <div className="w-full lg:w-1/2 lg:pl-[33px] mt-8 lg:mt-0">
             <div className="space-y-4">
               {rightFaqs.map((faq) => (
-                <div 
-                  key={faq.id}
-                  className={`border-b border-[#d5dcf7] ${activeIndex === faq.id ? 'active' : ''}`}
-                >
+                <div key={faq.id} className={`border-b border-[#d5dcf7] ${activeIndex === faq.id ? 'active' : ''}`}>
                   <button
-                    className={`w-full text-left py-[25px] pl-[68px] relative text-[20px] font-medium text-[#212877] tracking-tight`}
+                    className="w-full text-left py-[25px] pl-[68px] relative text-[20px] font-medium text-[#212877] tracking-tight"
                     onClick={() => toggleAccordion(faq.id)}
                   >
                     <span className={`absolute left-0 top-[14px] w-12 h-12 flex items-center justify-center border border-[#e9eced] rounded-lg shadow-[0_4px_4px_0_#eaecf8] bg-white ${activeIndex === faq.id ? 'bg-[#1438bc] text-white' : 'text-[#1438bc]'}`}>
