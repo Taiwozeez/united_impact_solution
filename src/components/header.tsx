@@ -69,18 +69,18 @@ const Header = () => {
 
   return (
     <>
-      {/* Preloader */}
+      {/* Preloader - Adjusted for mobile centering */}
       {isLoading && (
         <div 
           id="xb-loadding" 
-          className="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 bg-white"
+          className="fixed inset-0 z-50 flex items-center justify-center w-full h-full transition-opacity duration-500 bg-white"
           style={{ opacity: isLoading ? 1 : 0, pointerEvents: isLoading ? 'auto' : 'none' }}
         >
-          <div className="w-16 h-16 border-t-4 border-b-4 border-blue-600 rounded-full animate-spin"></div>
+          <div className="absolute w-16 h-16 border-t-4 border-b-4 border-blue-600 rounded-full animate-spin"></div>
         </div>
       )}
 
-      {/* Header */}
+      {/* Header - Rest remains exactly the same */}
       <header 
         id="xb-header-area" 
         className={`header-area ${isSticky ? 'fixed top-0 bg-white shadow-md' : 'absolute top-[35px]'} left-0 right-0 w-full z-30 transition-all duration-300`}
