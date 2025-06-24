@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ArrowRight, Plus } from "lucide-react"
 
 interface ServiceItem {
@@ -45,6 +45,44 @@ const services: ServiceItem[] = [
 
 export default function Service() {
   const [hoveredService, setHoveredService] = useState<number | null>(null)
+  const [visibleServices, setVisibleServices] = useState<number[]>([])
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    // Check if mobile view
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768) // Tailwind's md breakpoint
+    }
+
+    checkIfMobile()
+    window.addEventListener('resize', checkIfMobile)
+
+    // Intersection Observer for scroll animations (mobile only)
+    if (isMobile) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = Number(entry.target.getAttribute('data-service-id'))
+              setVisibleServices((prev) => [...prev, id])
+            }
+          })
+        },
+        { threshold: 0.1 }
+      )
+
+      document.querySelectorAll('.service-card').forEach((card) => {
+        observer.observe(card)
+      })
+
+      return () => {
+        observer.disconnect()
+        window.removeEventListener('resize', checkIfMobile)
+      }
+    }
+
+    return () => window.removeEventListener('resize', checkIfMobile)
+  }, [isMobile])
 
   const getServiceBackground = (index: number) => {
     const backgrounds = [
@@ -54,6 +92,14 @@ export default function Service() {
       "bg-gradient-to-br from-cyan-100 to-white",
     ]
     return backgrounds[index]
+  }
+
+  const shouldShowContent = (id: number) => {
+    // On mobile: show when scrolled into view or hovered (if somehow hovered on mobile)
+    // On desktop: show when hovered or isActive
+    return isMobile 
+      ? visibleServices.includes(id) || hoveredService === id
+      : hoveredService === id
   }
 
   return (
@@ -86,8 +132,9 @@ export default function Service() {
           {services.map((service, index) => (
             <div
               key={service.id}
+              data-service-id={service.id}
               className={`
-                relative group cursor-pointer transition-all duration-500 ease-in-out
+                service-card relative group cursor-pointer transition-all duration-500 ease-in-out
                 ${service.isActive ? "lg:w-[45%]" : "lg:w-[32%]"}
                 ${getServiceBackground(index)}
                 rounded-2xl p-8 lg:p-12 overflow-hidden
@@ -109,7 +156,7 @@ export default function Service() {
                 className={`
                   absolute bottom-12 left-8 transition-all duration-300
                   ${
-                    service.isActive || hoveredService === service.id
+                    shouldShowContent(service.id) || service.isActive
                       ? "opacity-0 translate-y-2"
                       : "opacity-100 translate-y-0"
                   }
@@ -118,12 +165,12 @@ export default function Service() {
                 <ArrowRight className="w-8 h-8 text-blue-600 transform -rotate-45" />
               </div>
 
-              {/* Content - Shown on active or hover */}
+              {/* Content - Shown on scroll (mobile) or hover (desktop) */}
               <div
                 className={`
                   transition-all duration-400 ease-in-out
                   ${
-                    service.isActive || hoveredService === service.id
+                    shouldShowContent(service.id) || service.isActive
                       ? "opacity-100 translate-y-0 delay-300"
                       : "opacity-0 translate-y-5"
                   }
@@ -138,7 +185,7 @@ export default function Service() {
           ))}
         </div>
 
-        {/* Call to Action Button - Fixed version */}
+        {/* Call to Action Button */}
         <div className="text-center">
           <button className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 bg-blue-600 rounded-full hover:bg-blue-700 hover:scale-105 hover:shadow-lg group">
             <span className="mr-2">Book a Discover Call</span>
