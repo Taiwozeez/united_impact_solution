@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Simulate page loading
@@ -20,6 +22,50 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const mobileMenuVariants = {
+    open: { 
+      opacity: 1,
+      x: 0,
+      transition: { 
+        type: "spring",
+        stiffness: 300,
+        damping: 30
+      }
+    },
+    closed: { 
+      opacity: 0,
+      x: "100%",
+      transition: { 
+        type: "spring",
+        stiffness: 300,
+        damping: 30
+      }
+    }
+  };
+
+  const hamburgerVariants = {
+    open: { rotate: 45, y: 6 },
+    closed: { rotate: 0, y: 0 }
+  };
+
+  const hamburgerMiddleVariants = {
+    open: { opacity: 0 },
+    closed: { opacity: 1 }
+  };
+
+  const hamburgerBottomVariants = {
+    open: { rotate: -45, y: -6 },
+    closed: { rotate: 0, y: 0 }
+  };
 
   return (
     <>
@@ -82,12 +128,28 @@ const Header = () => {
                 {/* Mobile Menu Button */}
                 <div className="xl:hidden">
                   <button 
-                    className="p-2 text-gray-800 focus:outline-none"
-                    aria-label="Open mobile menu"
+                    className="p-2 focus:outline-none"
+                    onClick={toggleMobileMenu}
+                    aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
                   >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
+                    <motion.div 
+                      className="flex flex-col w-6 h-6 justify-between"
+                      initial="closed"
+                      animate={isMobileMenuOpen ? "open" : "closed"}
+                    >
+                      <motion.span 
+                        className="w-full h-0.5 bg-current"
+                        variants={hamburgerVariants}
+                      />
+                      <motion.span 
+                        className="w-full h-0.5 bg-current"
+                        variants={hamburgerMiddleVariants}
+                      />
+                      <motion.span 
+                        className="w-full h-0.5 bg-current"
+                        variants={hamburgerBottomVariants}
+                      />
+                    </motion.div>
                   </button>
                 </div>
 
@@ -115,6 +177,58 @@ const Header = () => {
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              className="fixed inset-0 z-20 bg-white xl:hidden pt-20 px-4"
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={mobileMenuVariants}
+            >
+              {/* Close Button */}
+              <button 
+                onClick={closeMobileMenu}
+                className="absolute top-4 right-4 p-2 text-gray-800 hover:text-blue-800 transition-colors"
+                aria-label="Close menu"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className="h-8 w-8" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M6 18L18 6M6 6l12 12" 
+                  />
+                </svg>
+              </button>
+
+              {/* Menu Content */}
+              <nav className="main-menu">
+                <ul className="flex flex-col space-y-4">
+                  {['Home', 'About', 'Services', 'Vlog', 'Blog', 'Podcast', 'Shop'].map((item) => (
+                    <li key={item}>
+                      <a 
+                        href={item.toLowerCase()} 
+                        className="block px-5 py-3 text-gray-800 font-medium hover:text-blue-800 transition-colors duration-200 text-xl"
+                        onClick={closeMobileMenu}
+                      >
+                        {item}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
     </>
   );

@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { ArrowRight, Plus } from "lucide-react"
-// import { Button } from "@/components/ui/button"
 
 interface ServiceItem {
   id: number
@@ -18,14 +17,14 @@ const services: ServiceItem[] = [
     title: "Consulting",
     content:
       "We provide expertise, capacity, and implementation support for our clients, helping them understand and mobilize their solutions in addressing complex social challenges, including housing, food security, community economic development, community transit, literacy, education, and social services.",
-    icon: "/placeholder.svg?height=66&width=66",
+    icon: "images/da-fea_icon01.svg",
   },
   {
     id: 2,
     title: "Training",
     content:
       "Our comprehensive training offerings cater to individuals at all experience levels, from beginners to seasoned professionals. We empower nonprofits and government teams with the skills and knowledge necessary to develop sustainable models and conduct comprehensive impact measurement.",
-    icon: "/placeholder.svg?height=66&width=66",
+    icon: "images/da-fea_icon02.svg",
     isActive: true,
   },
   {
@@ -33,14 +32,14 @@ const services: ServiceItem[] = [
     title: "Ecosystem Development",
     content:
       "We are passionate about nurturing ecosystems that foster social purpose businesses and community growth. By working with us, governments and nonprofits can harness our experience to create environments where social entrepreneurs can thrive, helping to drive positive change at scale.",
-    icon: "/placeholder.svg?height=66&width=66",
+    icon: "images/da-fea_icon03.svg",
   },
   {
     id: 4,
     title: "Community Programming",
     content:
       "We specialize in assisting social entrepreneurs and entrepreneurs that face systemic barriers create thriving, sustainable enterprises. While entrepreneurs focus on their businesses, we provide invaluable just-in-time coaching and resources, enabling them to grow and succeed.",
-    icon: "/placeholder.svg?height=66&width=66",
+    icon: "images/da-fea_icon04.svg",
   },
 ]
 
@@ -70,7 +69,7 @@ export default function Service() {
         <div className="flex justify-center mb-12">
           <div className="max-w-2xl text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
-              <img src="/placeholder.svg?height=20&width=20" alt="Flower icon" className="w-5 h-5" />
+              <img src="/images/flower-icon-blue.svg" alt="Flower icon" className="w-5 h-5" />
               <span className="font-medium tracking-wide text-blue-600 uppercase">Our Services</span>
             </div>
             <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">Our Services</h2>
@@ -139,9 +138,9 @@ export default function Service() {
           ))}
         </div>
 
-        {/* Call to Action Button */}
+        {/* Call to Action Button - Fixed version */}
         <div className="text-center">
-          <button className="inline-flex items-center py-4 text-lg font-semibold text-white transition-all duration-300 bg-blue-600 rounded-full px-y8 hover:bg-blue-700 hover:scale-105 hover:shadow-lg group">
+          <button className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 bg-blue-600 rounded-full hover:bg-blue-700 hover:scale-105 hover:shadow-lg group">
             <span className="mr-2">Book a Discover Call</span>
             <Plus className="w-5 h-5 transition-transform duration-300 group-hover:rotate-90" />
           </button>
