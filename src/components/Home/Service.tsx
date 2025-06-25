@@ -18,6 +18,7 @@ const services: ServiceItem[] = [
     content:
       "We provide expertise, capacity, and implementation support for our clients, helping them understand and mobilize their solutions in addressing complex social challenges, including housing, food security, community economic development, community transit, literacy, education, and social services.",
     icon: "images/da-fea_icon01.svg",
+    isActive: true,
   },
   {
     id: 2,
@@ -25,7 +26,6 @@ const services: ServiceItem[] = [
     content:
       "Our comprehensive training offerings cater to individuals at all experience levels, from beginners to seasoned professionals. We empower nonprofits and government teams with the skills and knowledge necessary to develop sustainable models and conduct comprehensive impact measurement.",
     icon: "images/da-fea_icon02.svg",
-    isActive: true,
   },
   {
     id: 3,
@@ -55,7 +55,7 @@ export default function Service() {
     }
 
     checkIfMobile()
-    window.addEventListener('resize', checkIfMobile)
+    window.addEventListener("resize", checkIfMobile)
 
     // Intersection Observer for scroll animations (mobile only)
     if (isMobile) {
@@ -63,25 +63,25 @@ export default function Service() {
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              const id = Number(entry.target.getAttribute('data-service-id'))
+              const id = Number(entry.target.getAttribute("data-service-id"))
               setVisibleServices((prev) => [...prev, id])
             }
           })
         },
-        { threshold: 0.1 }
+        { threshold: 0.1 },
       )
 
-      document.querySelectorAll('.service-card').forEach((card) => {
+      document.querySelectorAll(".service-card").forEach((card) => {
         observer.observe(card)
       })
 
       return () => {
         observer.disconnect()
-        window.removeEventListener('resize', checkIfMobile)
+        window.removeEventListener("resize", checkIfMobile)
       }
     }
 
-    return () => window.removeEventListener('resize', checkIfMobile)
+    return () => window.removeEventListener("resize", checkIfMobile)
   }, [isMobile])
 
   const getServiceBackground = (index: number) => {
@@ -94,14 +94,6 @@ export default function Service() {
     return backgrounds[index]
   }
 
-  const shouldShowContent = (id: number) => {
-    // On mobile: show when scrolled into view or hovered (if somehow hovered on mobile)
-    // On desktop: show when hovered or isActive
-    return isMobile 
-      ? visibleServices.includes(id) || hoveredService === id
-      : hoveredService === id
-  }
-
   return (
     <section
       className="relative py-24 bg-center bg-no-repeat bg-cover"
@@ -109,7 +101,7 @@ export default function Service() {
         backgroundImage: "url('/placeholder.svg?height=800&width=1200')",
       }}
     >
-      <div className="absolute inset-0 bg-black/10"></div>
+      <div className="absolute inset-0 bg-white"></div>
       <div className="container relative z-10 px-4 mx-auto">
         {/* Section Header */}
         <div className="flex justify-center mb-12">
@@ -129,60 +121,89 @@ export default function Service() {
 
         {/* Services Grid */}
         <div className="flex flex-col gap-6 lg:flex-row mb-14">
-          {services.map((service, index) => (
-            <div
-              key={service.id}
-              data-service-id={service.id}
-              className={`
-                service-card relative group cursor-pointer transition-all duration-500 ease-in-out
-                ${service.isActive ? "lg:w-[45%]" : "lg:w-[32%]"}
-                ${getServiceBackground(index)}
-                rounded-2xl p-8 lg:p-12 overflow-hidden
-                hover:shadow-xl
-              `}
-              onMouseEnter={() => setHoveredService(service.id)}
-              onMouseLeave={() => setHoveredService(null)}
-            >
-              {/* Icon */}
-              <div className="mb-12 transition-transform duration-300 group-hover:scale-110">
-                <img src={service.icon || "/placeholder.svg"} alt={`${service.title} icon`} className="w-16 h-16" />
-              </div>
+          {services.map((service, index) => {
+            // Calculate dynamic width based on hover state and desktop view
+            let cardWidth = "lg:w-[32%]" // default width
 
-              {/* Title */}
-              <h3 className="mb-8 text-2xl font-bold text-gray-900 lg:text-3xl max-w-60">{service.title}</h3>
+            if (!isMobile) {
+              if (hoveredService === service.id) {
+                cardWidth = "lg:w-[45%]" // expanded width when hovered
+              } else if (hoveredService !== null) {
+                cardWidth = "lg:w-[27.5%]" // slightly smaller when another card is hovered
+              } else if (service.isActive) {
+                cardWidth = "lg:w-[45%]" // default active state
+              }
+            } else if (service.isActive) {
+              cardWidth = "lg:w-[45%]" // maintain active state on mobile
+            }
 
-              {/* Arrow - Hidden when content is shown */}
+            return (
               <div
+                key={service.id}
+                data-service-id={service.id}
                 className={`
-                  absolute bottom-12 left-8 transition-all duration-300
-                  ${
-                    shouldShowContent(service.id) || service.isActive
-                      ? "opacity-0 translate-y-2"
-                      : "opacity-100 translate-y-0"
-                  }
+                  service-card relative group cursor-pointer transition-all duration-500 ease-in-out
+                  ${cardWidth}
+                  ${getServiceBackground(index)}
+                  rounded-2xl p-8 lg:p-12 overflow-hidden
+                  hover:shadow-xl
+                  transform-gpu
                 `}
+                onMouseEnter={() => setHoveredService(service.id)}
+                onMouseLeave={() => setHoveredService(null)}
+                style={{
+                  transformOrigin: "center center",
+                }}
               >
-                <ArrowRight className="w-8 h-8 text-blue-600 transform -rotate-45" />
-              </div>
+                {/* Icon */}
+                <div className="mb-12 transition-transform duration-300 group-hover:scale-110">
+                  <img src={service.icon || "/placeholder.svg"} alt={`${service.title} icon`} className="w-16 h-16" />
+                </div>
 
-              {/* Content - Shown on scroll (mobile) or hover (desktop) */}
-              <div
-                className={`
-                  transition-all duration-400 ease-in-out
-                  ${
-                    shouldShowContent(service.id) || service.isActive
-                      ? "opacity-100 translate-y-0 delay-300"
-                      : "opacity-0 translate-y-5"
-                  }
-                `}
-              >
-                <p className="font-medium leading-relaxed text-gray-700">{service.content}</p>
-              </div>
+                {/* Title */}
+                <h3 className="mb-8 text-2xl font-bold text-gray-900 lg:text-3xl max-w-60">{service.title}</h3>
 
-              {/* Overlay Link */}
-              <a href="#" className="absolute inset-0 z-10" aria-label={`Learn more about ${service.title}`} />
-            </div>
-          ))}
+                {/* Arrow - Hidden when content is shown */}
+                <div
+                  className={`
+    absolute bottom-12 left-8 transition-all duration-300
+    ${
+      isMobile
+        ? (visibleServices.includes(service.id) || hoveredService === service.id)
+          ? "opacity-0 translate-y-2"
+          : "opacity-100 translate-y-0"
+        : (hoveredService === service.id || (service.isActive && hoveredService === null))
+          ? "opacity-0 translate-y-2"
+          : "opacity-100 translate-y-0"
+    }
+  `}
+                >
+                  <ArrowRight className="w-8 h-8 text-blue-600 transform -rotate-45" />
+                </div>
+
+                {/* Content - Shown on scroll (mobile) or hover (desktop) */}
+                <div
+                  className={`
+    transition-all duration-400 ease-in-out
+    ${
+      isMobile
+        ? (visibleServices.includes(service.id) || hoveredService === service.id)
+          ? "opacity-100 translate-y-0 delay-300"
+          : "opacity-0 translate-y-5"
+        : (hoveredService === service.id || (service.isActive && hoveredService === null))
+          ? "opacity-100 translate-y-0 delay-300"
+          : "opacity-0 translate-y-5"
+    }
+  `}
+                >
+                  <p className="font-medium leading-relaxed text-gray-700">{service.content}</p>
+                </div>
+
+                {/* Overlay Link */}
+                <a href="#" className="absolute inset-0 z-10" aria-label={`Learn more about ${service.title}`} />
+              </div>
+            )
+          })}
         </div>
 
         {/* Call to Action Button */}

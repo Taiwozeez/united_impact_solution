@@ -17,23 +17,23 @@ const Faq = () => {
   const leftFaqs: FaqItem[] = [
     {
       id: 1,
-      question: "What services does United Impact Solutions offer?",
+      question: "What services does United Innovation and Impact Solutions offer?",
       answer: "We provide a range of services to empower social enterprises and community-focused businesses, including strategic planning, impact measurement, community engagement strategies, and business development support."
     },
     {
       id: 2,
       question: "How will your approach help my organization?",
-      answer: "Our team blends business expertise with a focus on social and environmental impact. We tailor solutions that help you make a real difference in your community while ensuring financial sustainability."
+      answer: "Our approach combines innovative thinking with practical solutions to help your organization maximize its social impact while maintaining financial sustainability. We provide tailored strategies that address your specific challenges and opportunities."
     },
     {
       id: 3,
       question: "Which types of organizations do you work with?",
-      answer: "We partner with nonprofits, cooperatives, charities, and socially driven for-profit enterprises across various sectors—like health, education, and the environment."
+      answer: "We partner with nonprofits, social enterprises, community organizations, and mission-driven businesses across various sectors including education, healthcare, environmental sustainability, and economic development."
     },
     {
       id: 4,
       question: "Do you only work with established organizations?",
-      answer: "Not at all. Whether you're just getting started with a social enterprise idea or looking to scale an existing initiative, we can guide you every step of the way."
+      answer: "No, we work with organizations at all stages of development. Whether you're just starting out with an idea or looking to scale an existing initiative, we can provide the guidance and support you need to succeed."
     }
   ];
 
@@ -46,17 +46,17 @@ const Faq = () => {
     {
       id: 6,
       question: "How important is measuring impact?",
-      answer: "Measuring your social or environmental impact is vital for proving your value to funders, stakeholders, and the community. We'll guide you in selecting the right metrics and tools."
+      answer: "Measuring impact is crucial for demonstrating your effectiveness to stakeholders, securing funding, and improving your programs. We help you develop meaningful metrics and systems to track your progress and outcomes."
     },
     {
       id: 7,
       question: "How do you ensure long-term sustainability?",
-      answer: "Our strategies balance financial viability with social good, ensuring that you can continue making a positive impact for years to come."
+      answer: "We focus on building capacity within your organization, developing diversified funding strategies, and creating operational systems that will support your work for years to come."
     },
     {
       id: 8,
       question: "How soon can we expect results?",
-      answer: "Timelines vary based on your project's complexity, but many organizations begin seeing improvements in community engagement and operational efficiency within a few months."
+      answer: "While some improvements can be seen quickly, meaningful change typically takes 3-6 months. We work at a pace that's right for your organization while ensuring steady progress toward your goals."
     }
   ];
 
@@ -64,11 +64,11 @@ const Faq = () => {
     <section className="pt-[80px] md:pt-[150px] pb-[60px] md:pb-[115px] bg-[#f4f5fc]">
       <div className="container px-4 mx-auto">
         <div className="text-center mb-[30px]">
-          <h2 className="text-3xl md:text-4xl font-bold">Your Questions, Answered!</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#212877]">Your Questions, Answered!</h2>
         </div>
 
         <div className="flex flex-col lg:flex-row">
-          {/* Left Column FAQ - Stacked on mobile */}
+          {/* Left Column FAQ */}
           <div className="w-full lg:w-1/2 lg:pr-[33px]">
             <div className="space-y-2 md:space-y-4">
               {leftFaqs.map((faq) => (
@@ -77,7 +77,11 @@ const Faq = () => {
                     className="w-full text-left py-4 md:py-[25px] pl-12 md:pl-[68px] relative text-lg md:text-[20px] font-medium text-[#212877] tracking-tight"
                     onClick={() => toggleAccordion(faq.id)}
                   >
-                    <span className={`absolute left-0 top-3 md:top-[14px] w-8 h-8 md:w-12 md:h-12 flex items-center justify-center border border-[#e9eced] rounded-lg shadow-[0_4px_4px_0_#eaecf8] bg-white ${activeIndex === faq.id ? 'bg-[#1438bc] text-white' : 'text-[#1438bc]'}`}>
+                    <span className={`
+                      absolute left-0 top-3 md:top-[14px] w-8 h-8 md:w-12 md:h-12 flex items-center justify-center 
+                      rounded-lg shadow-[0_4px_4px_0_#eaecf8] transition-colors duration-200
+                      ${activeIndex === faq.id ? 'bg-[#212877] text-white' : 'bg-white text-[#212877] border border-[#e9eced]'}
+                    `}>
                       {faq.id}
                     </span>
                     {faq.question}
@@ -99,7 +103,7 @@ const Faq = () => {
             </div>
           </div>
 
-          {/* Right Column FAQ - Stacked on mobile */}
+          {/* Right Column FAQ */}
           <div className="w-full lg:w-1/2 lg:pl-[33px] mt-8 lg:mt-0">
             <div className="space-y-2 md:space-y-4">
               {rightFaqs.map((faq) => (
@@ -108,7 +112,11 @@ const Faq = () => {
                     className="w-full text-left py-4 md:py-[25px] pl-12 md:pl-[68px] relative text-lg md:text-[20px] font-medium text-[#212877] tracking-tight"
                     onClick={() => toggleAccordion(faq.id)}
                   >
-                    <span className={`absolute left-0 top-3 md:top-[14px] w-8 h-8 md:w-12 md:h-12 flex items-center justify-center border border-[#e9eced] rounded-lg shadow-[0_4px_4px_0_#eaecf8] bg-white ${activeIndex === faq.id ? 'bg-[#1438bc] text-white' : 'text-[#1438bc]'}`}>
+                    <span className={`
+                      absolute left-0 top-3 md:top-[14px] w-8 h-8 md:w-12 md:h-12 flex items-center justify-center 
+                      rounded-lg shadow-[0_4px_4px_0_#eaecf8] transition-colors duration-200
+                      ${activeIndex === faq.id ? 'bg-[#212877] text-white' : 'bg-white text-[#212877] border border-[#e9eced]'}
+                    `}>
                       {faq.id}
                     </span>
                     {faq.question}

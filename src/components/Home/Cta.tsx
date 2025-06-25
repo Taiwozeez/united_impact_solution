@@ -1,4 +1,3 @@
-
 const Cta = () => {
   return (
     <section className="w-full">
@@ -27,7 +26,8 @@ const Cta = () => {
             </p>
 
             <div className="flex items-center gap-6 mt-[50px]">
-              <div className="inline-block border-[3px] border-[#53baff] rounded-full overflow-hidden w-[64px] h-[64px]">
+              {/* ✅ Increased avatar size from 64px → 80px */}
+              <div className="inline-block border-[3px] border-[#53baff] rounded-full overflow-hidden w-[80px] h-[80px]">
                 <img src="/images/da-img_1.png" alt="Author" className="object-cover w-full h-full" />
               </div>
               <div>
@@ -41,21 +41,25 @@ const Cta = () => {
         {/* CTA Section */}
         <div
           className={`
-            w-full md:w-[40.9%] min-h-[645px] bg-[#53baff] flex items-center
-            px-5 sm:px-[30px] md:px-[50px] xl:px-[135px] py-[50px] md:py-0
+            w-full md:w-[40.9%] bg-[#53baff] flex items-center
+            px-5 sm:px-[30px] md:px-[50px] xl:px-[135px]
+            py-[50px] md:py-[60px] h-auto md:h-[660px]
+            md:mt-[170px]   /* ✅ Added top margin to push it down */
           `}
         >
           <div>
             <h2
               className={`
                 text-white font-semibold
-                text-[40px] leading-[55px] tracking-[-0.02em]
-                xl:text-[50px] xl:leading-[64px]
+                text-[36px] leading-[48px] tracking-[-0.02em]
+                xl:text-[45px] xl:leading-[60px]
               `}
             >
-              Partner with us to unlock the full potential of your mission.
+              Partner With Us To<br />
+              Unlock The Full Potential<br />
+              Of Your Mission.
             </h2>
-            <div className="mt-12">
+            <div className="mt-10">
               <a
                 href="#!"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#53baff] font-semibold rounded-full shadow hover:bg-gray-100 transition"

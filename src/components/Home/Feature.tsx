@@ -1,111 +1,96 @@
-const Feature = () => {
+export default function Feature() {
+  const cards = [
+    {
+      id: 1,
+      title: "Digital Equity & Poverty Relief",
+      description: "Provide free and low-cost computers, internet access and tech training to break cycles of poverty.",
+      gradient: "bg-gradient-to-br from-cyan-300 to-blue-600",
+      topOffset: "top-80",
+      maxWidth: "max-w-4xl",
+      marginBottom: "mb-32",
+    },
+    {
+      id: 2,
+      title: "Education & Employment Upskilling",
+      description:
+        "Offer mentorship, sector-specific workshops and certification programs for immigrants and low-income individuals.",
+      gradient: "bg-gradient-to-br from-blue-300 to-purple-400",
+      topOffset: "top-80",
+      maxWidth: "max-w-[61rem]",
+      marginBottom: "mb-24",
+    },
+    {
+      id: 3,
+      title: "Nonprofit Capacity Building",
+      description:
+        "Equip grassroots charities with software tools, grant-writing support and leadership training to maximize their reach.",
+      gradient: "bg-gradient-to-br from-pink-300 to-indigo-500",
+      topOffset: "top-[21.6rem]",
+      maxWidth: "max-w-[62rem]",
+      marginBottom: "mb-16",
+    },
+    {
+      id: 4,
+      title: "Health & Wellbeing Access",
+      description:
+        "Develop digital health insurance solutions and advocate for policies that prioritize equitable healthcare access.",
+      gradient: "bg-gradient-to-br from-yellow-300 to-pink-500",
+      topOffset: "top-[23.2rem]",
+      maxWidth: "max-w-[63rem]",
+      marginBottom: "mb-8",
+    },
+    {
+      id: 5,
+      title: "Impact Funding & Advocacy",
+      description:
+        "Distribute grants to qualified donees and lead public-private partnerships to amplify systemic change.",
+      gradient: "bg-gradient-to-br from-yellow-300 to-pink-500",
+      topOffset: "top-[23.2rem]",
+      maxWidth: "max-w-[64rem]",
+      marginBottom: "mb-8",
+    },
+  ]
+
   return (
-    <section className="feature pt-[60px] md:pt-[150px] pb-[60px] md:pb-[150px] bg-[#f4f5fc]">
-      <div className="px-4 md:px-0 container-fluid">
-        {/* Section Header */}
-        <div className="flex justify-center row">
-          <div className="w-full lg:w-8/12 xl:w-5/12">
-            <div className="da-sec-titlte text-center mb-[40px] md:mb-[70px]">
-              <span className="sub_title flex items-center justify-center text-[#212877] font-medium">
-                <span className="mr-2">
-                  <img src="/images/flower-icon-blue.svg" alt="Flower icon" className="w-5" />
-                </span>
-                About
-              </span>
-              <h2 className="title text-[32px] leading-[40px] md:text-[50px] md:leading-[64px] font-bold text-[#212877] mt-4">
-                What We Do
-              </h2>
-            </div>
+    <section id="what-we-do" className="bg-[#f4f5fc] py-12 md:py-16 lg:py-20">
+      <div className="container px-4 mx-auto">
+        {/* Header Section */}
+        <div className="pt-12 mb-12 text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <img src="/images/flower-icon-blue.svg" alt="Flower icon" className="w-6 h-6" />
+            <span className="text-sm font-medium tracking-wide text-gray-600 uppercase">About</span>
           </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#212877]">What We Do</h2>
         </div>
 
-        {/* Feature Grid */}
-        <div className="da-feature-wrap bg-[#D5DCF7] border-t border-b border-[#D5DCF7]">
-          <div className="flex flex-wrap row">
-            {/* Feature 1 - Economic Growth */}
-            <div className="w-full md:w-1/2 lg:w-1/3 xl:w-4/12 fea-col">
-              <div className="da-feature-item bg-[#f4f5fc] hover:bg-white rounded-none md:rounded-r-none lg:rounded-r-[10px] transition-all duration-300 p-[40px_30px_30px_30px] md:p-[68px_100px_40px_46px] lg:mr-[66px]">
-                <div className="xb-item--holder md:pl-[215px] lg:pl-0">
-                  <div className="flex xb-item--icon">
-                    <img src="/images/da-fea_icon01.svg" alt="Economic Growth icon" />
-                  </div>
-                  <h3 className="xb-item--title text-[28px] leading-[36px] md:text-[38px] md:leading-[50px] font-normal text-[#212877] mt-[25px] md:mt-[35px] mb-[20px] md:mb-[28px]">
-                    Economic Growth
+        {/* Solution Cards */}
+        <div className="mt-12 space-y-8 solution-cards">
+          {cards.map((card) => (
+            <div
+              key={card.id}
+              className={`sticky p-0.5 rounded-lg mx-auto transition-transform duration-300 hover:scale-[1.02] min-h-[28rem] ${card.topOffset} ${card.maxWidth} ${card.marginBottom} ${card.gradient}`}
+            >
+              <div className="flex flex-col items-start p-8 md:p-12 lg:p-16 border-4 border-transparent rounded-lg bg-[#f4f5fc] gap-6 md:gap-8 lg:gap-10 min-h-[28rem]">
+                {/* Icon placeholder - hidden as per original CSS */}
+                <div className="invisible w-12 h-12">
+                  <img
+                    src={`/images/icons/${card.title.toLowerCase().replace(/\s+/g, "-").replace("&", "")}.svg`}
+                    alt=""
+                    className="w-12 h-12"
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#212877] leading-tight">
+                    {card.title}
                   </h3>
-                  <p className="xb-item--content text-[16px] leading-[160%] md:leading-[187%] font-normal text-[#212877]">
-                    We empower communities and businesses to foster inclusive prosperity and create sustainable resilience.
-                  </p>
+                  <p className="text-[#212877] text-base md:text-lg leading-relaxed">{card.description}</p>
                 </div>
               </div>
             </div>
-
-            {/* Feature 2 - Driving Innovation */}
-            <div className="w-full md:w-1/2 lg:w-1/6 xl:w-2/12 fea-col">
-              <div className="da-feature-item bg-[#f4f5fc] hover:bg-white transition-all duration-300 p-[40px_30px_30px_30px] md:p-[68px_100px_40px_46px] lg:ml-[-65px] lg:mr-[1px]">
-                <div className="xb-item--holder">
-                  <div className="flex xb-item--icon">
-                    <img src="/images/da-fea_icon02.svg" alt="Driving Innovation icon" />
-                  </div>
-                  <h3 className="xb-item--title text-[28px] leading-[36px] md:text-[38px] md:leading-[50px] font-normal text-[#212877] mt-[25px] md:mt-[35px] mb-[20px] md:mb-[28px]">
-                    Driving Innovation
-                  </h3>
-                  <p className="xb-item--content text-[16px] leading-[160%] md:leading-[187%] font-normal text-[#212877]">
-                    We champion fresh thinking and emerging technologies to develop forward-thinking solutions for social impact.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Feature 3 - Social Support */}
-            <div className="w-full md:w-1/2 lg:w-1/6 xl:w-2/12 fea-col">
-              <div className="da-feature-item bg-[#f4f5fc] hover:bg-white transition-all duration-300 p-[40px_30px_30px_30px] md:p-[68px_100px_40px_46px] lg:mr-[-65px]">
-                <div className="xb-item--holder">
-                  <div className="flex xb-item--icon">
-                    <img src="/images/da-fea_icon03.svg" alt="Social Support icon" />
-                  </div>
-                  <h3 className="xb-item--title text-[28px] leading-[36px] md:text-[38px] md:leading-[50px] font-normal text-[#212877] mt-[25px] md:mt-[35px] mb-[20px] md:mb-[28px]">
-                    Social Support
-                  </h3>
-                  <p className="xb-item--content text-[16px] leading-[160%] md:leading-[187%] font-normal text-[#212877]">
-                    We strengthen community networks and expand access to vital services, ensuring everyone has a path to thrive.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Feature 4 - Online Learning */}
-            <div className="w-full md:w-1/2 lg:w-1/3 xl:w-4/12 fea-col">
-              <div className="da-feature-item bg-[#f4f5fc] hover:bg-white rounded-none md:rounded-l-none lg:rounded-l-[10px] transition-all duration-300 p-[40px_30px_30px_30px] md:p-[68px_100px_40px_46px] lg:ml-[66px]">
-                <div className="xb-item--holder md:pr-[215px] lg:pr-0">
-                  <div className="flex xb-item--icon">
-                    <img src="/images/da-fea_icon04.svg" alt="Online Learning icon" />
-                  </div>
-                  <h3 className="xb-item--title text-[28px] leading-[36px] md:text-[38px] md:leading-[50px] font-normal text-[#212877] mt-[25px] md:mt-[35px] mb-[20px] md:mb-[28px]">
-                    Online Learning
-                  </h3>
-                  <p className="xb-item--content text-[16px] leading-[160%] md:leading-[187%] font-normal text-[#212877]">
-                    We provide accessible training and coaching that equip changemakers with the skills needed to lead effectively.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* CTA Button */}
-        <div className="xb-btn text-center mt-[40px] md:mt-[70px]">
-          <a href="#!" className="inline-flex items-center px-6 py-3 text-white bg-[#212877] border-2 border-[#212877] rounded-full hover:bg-white hover:text-[#212877] transition-colors duration-300">
-            <span className="mr-2">Book a Discover Call</span>
-            <div className="flex items-center justify-center w-6 h-6 rounded-full group-hover:bg-[#212877] bg-white">
-              <svg className="w-3 h-3 group-hover:text-white text-[#212877]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-            </div>
-          </a>
+          ))}
         </div>
       </div>
     </section>
-  );
-};
-
-export default Feature;
+  )
+}
