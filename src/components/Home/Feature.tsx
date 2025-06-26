@@ -5,9 +5,9 @@ export default function Feature() {
       title: "Digital Equity & Poverty Relief",
       description: "Provide free and low-cost computers, internet access and tech training to break cycles of poverty.",
       gradient: "bg-gradient-to-br from-cyan-300 to-blue-600",
-      topOffset: "top-80",
-      maxWidth: "max-w-4xl",
-      marginBottom: "mb-32",
+      topOffset: "top-32",
+      maxWidth: "max-w-[60rem]",
+      marginBottom: "mb-12",
     },
     {
       id: 2,
@@ -15,9 +15,9 @@ export default function Feature() {
       description:
         "Offer mentorship, sector-specific workshops and certification programs for immigrants and low-income individuals.",
       gradient: "bg-gradient-to-br from-blue-300 to-purple-400",
-      topOffset: "top-80",
+      topOffset: "top-48",
       maxWidth: "max-w-[61rem]",
-      marginBottom: "mb-24",
+      marginBottom: "mb-12",
     },
     {
       id: 3,
@@ -25,9 +25,9 @@ export default function Feature() {
       description:
         "Equip grassroots charities with software tools, grant-writing support and leadership training to maximize their reach.",
       gradient: "bg-gradient-to-br from-pink-300 to-indigo-500",
-      topOffset: "top-[21.6rem]",
+      topOffset: "top-48",
       maxWidth: "max-w-[62rem]",
-      marginBottom: "mb-16",
+      marginBottom: "mb-12",
     },
     {
       id: 4,
@@ -35,9 +35,9 @@ export default function Feature() {
       description:
         "Develop digital health insurance solutions and advocate for policies that prioritize equitable healthcare access.",
       gradient: "bg-gradient-to-br from-yellow-300 to-pink-500",
-      topOffset: "top-[23.2rem]",
+      topOffset: "top-48",
       maxWidth: "max-w-[63rem]",
-      marginBottom: "mb-8",
+      marginBottom: "mb-12",
     },
     {
       id: 5,
@@ -45,9 +45,9 @@ export default function Feature() {
       description:
         "Distribute grants to qualified donees and lead public-private partnerships to amplify systemic change.",
       gradient: "bg-gradient-to-br from-yellow-300 to-pink-500",
-      topOffset: "top-[23.2rem]",
+      topOffset: "top-48",
       maxWidth: "max-w-[64rem]",
-      marginBottom: "mb-8",
+      marginBottom: "mb-12",
     },
   ]
 
@@ -64,11 +64,11 @@ export default function Feature() {
         </div>
 
         {/* Solution Cards */}
-        <div className="mt-12 space-y-8 solution-cards">
-          {cards.map((card) => (
+        <div className="mt-12">
+          {cards.map((card, index) => (
             <div
               key={card.id}
-              className={`sticky p-0.5 rounded-lg mx-auto transition-transform duration-300 hover:scale-[1.02] min-h-[28rem] ${card.topOffset} ${card.maxWidth} ${card.marginBottom} ${card.gradient}`}
+              className={`sticky p-0.5 rounded-lg mx-auto transition-transform duration-300 hover:scale-[1.02] min-h-[28rem] ${card.topOffset} ${card.maxWidth} ${index !== cards.length - 1 ? 'mb-12' : ''} ${card.gradient}`}
             >
               <div className="flex flex-col items-start p-8 md:p-12 lg:p-16 border-4 border-transparent rounded-lg bg-[#f4f5fc] gap-6 md:gap-8 lg:gap-10 min-h-[28rem]">
                 {/* Icon placeholder - hidden as per original CSS */}
